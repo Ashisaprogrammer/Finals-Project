@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Home
+{% endblock %}
+{% block content %}
+<h1>Realestate only for the real you</h1>
+<style>
+    .image-container {
+        display: flex; /* Use flexbox for horizontal layout */
+        justify-content: flex-start; /* Align items to the start of the container */
+        align-items: flex-start; /* Align items to the top of the container */
+        margin-top: 0; /* Remove any top margin */
+        overflow-x: auto; /* Allow horizontal scrolling if needed */
+    }
+    img {
+        height: 25vh; /* 25% of the viewport height */
+        width: 20vw;  /* Adjusted width to fit more images horizontally */
+        object-fit: contain; /* Ensures the entire image fits without being cut off */
+        margin-right: 10px; /* Reduced space between images */
+    }
+    /* Optional: Style for the navbar if needed */
+    nav {
+        position: fixed; /* Keep navbar fixed at the top */
+        width: 100%; /* Full width */
+        background-color: white; /* Background color for visibility */
+        z-index: 1000; /* Ensure it stays above other content */
+    }
+</style>
+
+<div class="image-container">
+    <span>
+        <img src="{% static 'house 2.jpg' %}" alt="House-2">
+    </span>
+    <span>
+        <img src="{% static 'house 4.jpg' %}" alt="House-4">
+    </span>
+    <span>
+        <img src="{% static 'house 5.jpg' %}" alt="House-5">
+    </span>
+    <span>
+        <img src="{% static 'house 7.jpg' %}" alt="House-7">
+    </span>
+    <span hidden="hidden">{{loggedinUser}} </span>
+</div>
+{% endblock %}

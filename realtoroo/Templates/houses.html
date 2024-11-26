@@ -1,0 +1,125 @@
+{%extends 'base.html'%}
+{% load static %}
+<html>
+<head>
+    <title>Real Estate Listings</title>
+    
+    <style>
+        .card-img-top {
+            height: 200px !important;
+            object-fit: cover;
+        }
+    </style>
+    
+</head>
+{% block content %}
+<body>
+    <!--<body>
+        <div class="container mt-4">
+        <h1 class="text-center mb-4">Houses</h1>
+         Card Container 
+        <div class="row">
+        {% for item in items %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.cost }}</h5>
+                    <p class="card-text">{{ item.location }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted">No houses available.</p>
+        </div>
+        {% endfor %}
+        </div> -->
+
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Real Estate Listings</h1>
+    <div class="row">
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{% static 'house 2.jpg' %}" class="card-img-top" alt="Property Image" height="300px" >
+                <div class="card-body">
+                    <h5 class="card-title">Beautiful Family House</h5>
+                    <form method="POST" action="/view_details/">
+                        {% csrf_token %}
+                    <input type="hidden" value="101" name="houseid">
+                    <p class="card-text">Location: New York, NY</p>
+                    <p class="card-text">Price: $750,000</p>
+                    
+                    <input type="submit" value ="View Details" class="btn btn-primary">View Details</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{% static 'house 4.jpg' %}" class="card-img-top" alt="Property Image" height="300px">
+                <div class="card-body">
+                    <h5 class="card-title">Modern Apartment</h5>
+                    <p class="card-text">Location: San Francisco, CA</p>
+                    <p class="card-text">Price: $1,200,000</p>
+                    <form method="post" action="/view_details/">
+                        {% csrf_token %}
+                    <input type="hidden" value="102" name="houseid">
+                    <input type="submit" value = "View Details" class="btn btn-primary">View Details</a>    
+                    </form>
+                </div>
+            </div>
+        </div>
+            
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{% static 'house 5.jpg' %}" class="card-img-top" alt="Property Image" height="300px">
+                <div class="card-body">
+                    <h5 class="card-title">Cozy Cottage</h5>
+                    
+                    <p class="card-text">Location: Austin, TX</p>
+                    <p class="card-text">Price: $350,000</p>
+                    <form method="post" action="/view_details/">
+                        {% csrf_token %}
+                    <input type="hidden" value="103" name="houseid">
+                    <input type="submit" value = "View Details" class="btn btn-primary">View Details</a>    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row">
+        {% for house in houses %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                {% if house.img %}
+                    <img src="{{ house.img.url }}" alt="House Image">
+                {% else %}
+                    <img src="{% static 'realtoroo\static\house 4.jpg' %}" alt="Default Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ house.type_building }}</h5>
+                    <form method="POST" action="/view_details/">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ house.hid }}" name="houseid">
+                        <p class="card-text">Location: {{ house.location }}</p>
+                        <p class="card-text">Price: ${{ house.cost }}</p>
+                        <input type="submit" class="btn btn-primary" value="View Details">
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}
+</html>

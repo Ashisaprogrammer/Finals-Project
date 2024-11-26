@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 style="text-align: center; color: #007bff;">Register Your House for Sale</h1>
+
+<div class="container" style="max-width: 600px; margin-top: 50px;">
+    <form method="post" enctype="multipart/form-data" action = "{% url 'register_house' %}" style="background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);">
+        {% csrf_token %}
+        <h3 style="text-align: center; color: #007bff;">House Registration Form</h3>
+        
+        <div class="form-group">
+            <label for="hid" style="font-weight: bold;">House ID</label>
+            <input type="text" name="hid" required class="form-control" style="height: 45px;">
+        </div>
+
+        <div class="form-group">
+            <label for="cost" style="font-weight: bold;">Cost</label>
+            <input type="number" name="cost" required class="form-control" style="height: 45px;">
+        </div>
+
+        <div class="form-group">
+            <label for="location" style="font-weight: bold;">Location</label>
+            <input type="text" name="location" required class="form-control" style="height: 45px;">
+        </div>
+
+        <div class="form-group">
+            <label for="num_rooms" style="font-weight: bold;">Number of Rooms</label>
+            <input type="number" name="num_rooms" required class="form-control" style="height: 45px;">
+        </div>
+
+        <div class="form-group">
+            <label for="type_building" style="font-weight: bold;">Type of Building</label>
+            <input type="text" name="type_building" required class="form-control" style="height: 45px;">
+        </div>
+
+        <div class="form-group">
+            <label for="bid" style="font-weight: bold;">Bid</label>
+            <input type="text" name="bid" required class="form-control" style="height: 45px;">
+        </div>
+
+        <div class="form-group">
+            <label for="num_floors" style="font-weight: bold;">Number of Floors</label>
+            <input type="number" name="num_floors" required class="form-control" style="height: 45px;">
+        </div>
+
+        <div class="form-group">
+            <label for="img" style="font-weight: bold;">Image of House</label>
+            <input type="file" name="img" required class="form-control" style="height: 45px;">
+        </div>
+        <button class="btn btn-primary" type="submit" value="Register House" style="width: 100%; height: 45px; margin-top: 20px;">Register House</button>
+    
+        <!--<form method="post" style="background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);">
+        {% csrf_token %}
+        {{ form.as_p }}   
+        <button type="submit" value="Register House" style="width: 100%; height: 45px; margin-top: 20px;">Register House</button>
+    </form>
+    <a href="{% url 'houses' %}">View All Items</a>
+</div>
+-->
+<style>
+    body {
+        background-color: #f8f9fa; /* Light background color */
+    }
+    h1 {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+    .form-control {
+        border: 1px solid #007bff; /* Blue border for input fields */
+    }
+    .form-control:focus {
+        border-color: #0056b3; /* Darker blue on focus */
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow effect */
+    }
+    .btn-primary {
+        background-color: #007bff; /* Primary button color */
+        border: none; /* No border */
+    }
+    .btn-primary:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+</style>
+
+{% endblock %}
