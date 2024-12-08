@@ -1,21 +1,70 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 {% load static %}
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Real Estate Listing Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Real Estate Listing Details{%endblock%}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background color */
+            font-family: 'Arial', sans-serif; /* Modern font */
+        }
+        .card {
+            margin-bottom: 20px; /* Space between cards */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for card */
+        }
+        .card-img-top {
+            height: 200px; /* Fixed height for images */
+            object-fit: cover; /* Cover the area without distortion */
+        }
+        .details-header {
+            background-color: #007bff; /* Primary color */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0; /* Rounded top corners */
+        }
+        .card-title {
+                color: #007bff; /* Bootstrap primary color */
+            }
+    </style>
 </head>
-{%block content %}
 <body>
-    {% for row in house_details %}
-    <div>
-        <div class ="numbers">{{row.2}}</div>
-        <div class ="text">{{row.3}}</div>
-        <div class ="numbers">{{row.4}}</div>
-        <div class ="text">{{row.5}}</div>
-        <div class ="numbers">{{row.6}}</div>
-
+    {% block content %}
+    <div class="container mt-5">
+        {% if house_details %}
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <img src="/{{ house_details.img }}" class="img-fluid rounded-start" alt="House Image">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ house_details.type_building }} in {{ house_details.location }}</h5>
+                            <p class="card-text"><strong>Cost:</strong> ${{ house_details.cost }}</p>
+                            <p class="card-text"><strong>Number of Rooms:</strong> {{ house_details.num_rooms }}</p>
+                            <p class="card-text"><strong>Building ID:</strong> {{ house_details.bid }}</p>
+                            <p class="card-text"><strong>Number of Floors:</strong> {{ house_details.num_floors }}</p>
+                            <a href="{% url 'houses' %}" class="btn btn-primary">Back to Houses</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-danger mt-3" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
     </div>
-    {% endfor %}
+    
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-{% endblock %}
+{%endblock%}
 </html>

@@ -47,7 +47,6 @@ def Registerprocess(request):
 
 def loginprocess(request):
 	users = Users_Login.objects.all()
-	lflag=False
 	funame=request.POST.get("email")
 	fpwd=request.POST.get("password")
 	print(funame,fpwd)
@@ -57,32 +56,15 @@ def loginprocess(request):
 		return render(request,"houses.html",{"loggedinUser":funame})
 	else:
 		return render(request, "login.html", {"invalid": "INVALID DETAILS. PLEASE TRY AGAIN."})
-    
-
-def view_details(request): 
-    return render(request, 'details.html')	
 
 
 def details(request):
-    #data = home_info.objects.all
     hids=request.POST.get("houseid")
-    print("aafhid",hids)
-    with cn.cursor() as cursor: 
-        cursor.execute("SELECT * FROM realtoroo_app_home_info where hid = %s",[hids])
-        data = cursor.fetchall()
-        print("ssss",data)
-
-        '''house_details =[] 
-        for row in data: 
-            house_info = {
-                "hid":row[1],
-                "cost":row[2],
-                "location":row[3],
-                "num_rooms":row[4]
-                }
-            house_details.append(house_info)'''
-    print("something",data)
-    return render(request,"details.html",{"house_details": data})
+    house = home_info.objects.filter(hid=hids).first()
+    if house:
+        return render(request,"details.html",{"house_details":house})
+    else: 
+        return render(request,"details.html",{"error":"House not found."})
 
 
 def register_house(request):
@@ -114,20 +96,3 @@ def register_house(request):
         return redirect('houses')  # Redirect to the houses page after registration
 
     return render(request, 'register_house.html')
-
-
-
-'''def register_house(request):
-    if request.method == 'POST':
-        form = ItemForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('houses.html')  # Redirect to display page
-    else:
-        form = ItemForm()
-    return render(request, 'register_house.html', {'form': form})
-
-# View for displaying data
-def show_items(request):
-    items = home_info.objects.all()
-    return render(request, 'houses.html', {'items': items})'''
