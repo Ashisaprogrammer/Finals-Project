@@ -13,9 +13,6 @@ from .models import home_info
 #from .forms import ItemForm
 # Create your views here.
 
-def home(request):
- return render(request,'home.html')
-
 def sign_up(request): 
  return render(request,'sign_up.html')
 
@@ -51,9 +48,9 @@ def loginprocess(request):
 	fpwd=request.POST.get("password")
 	print(funame,fpwd)
 	print(users)
-	
+
 	if Users_Login.objects.filter(email=funame,pwd=fpwd).exists():
-		return render(request,"houses.html",{"loggedinUser":funame})
+		return render(request,"register_house.html",{"loggedinUser":funame})
 	else:
 		return render(request, "login.html", {"invalid": "INVALID DETAILS. PLEASE TRY AGAIN."})
 

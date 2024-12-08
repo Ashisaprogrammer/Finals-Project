@@ -4,96 +4,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Real Estate Website{% endblock %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{%block title%}Realtoroo{%endblock%}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-utilities.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <style>
         body {
-            background-color: #f8f9fa; /* Light background color */
-            font-family: 'Arial', sans-serif; /* Modern font */
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #343a40;
         }
-        header {
-            background-color: #007bff; /* Primary color */
-            color: white;
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            color: #007bff;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            border-radius: 10px;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .footer {
+            text-align: center;
             padding: 20px 0;
-            text-align: center;
-        }
-        nav {
-            margin-bottom: 20px;
-        }
-        .navbar {
-            background-color: #343a40; /* Dark navbar */
-        }
-        .navbar a {
-            color: white; /* White text for navbar links */
-        }
-        .navbar a:hover {
-            color: #007bff; /* Change color on hover */
-        }
-        footer {
-            background-color: #343a40; /* Dark footer */
+            background-color: #007bff;
             color: white;
-            text-align: center;
-            padding: 10px 0;
             position: relative;
             bottom: 0;
             width: 100%;
         }
-        .container {
+        .no-houses {
+            text-align: center;
+            font-size: 1.2em;
+            color: #6c757d;
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Welcome to Realtoroo</h1>
-    <p>Your trusted real estate partner</p>
-</header>
-
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src ="{% static 'logo.png' %}" alt="" width="50" height="30" class="d-inline-block align-text-top">
-        Realtoroo
-      </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'sign_up' %}">Realtoroo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ms-auto"> <!-- Align items to the right -->
                 <li class="nav-item">
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'sign_up' %}">Sign up </a>
-                  </li>
-                  <a class="nav-link" href="{% url 'houses' %}">Houses</a>
-                </li> 
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-link" href="{% url 'houses' %}">Houses</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'register_house' %}">Sell House</a>
-              </li>
-              <li class ="nav-item position-absolute top-20 end-0">
-                <a class ="nav-link" href = "{% url 'login' %}">{{loggedinUser}}</a> 
-              </li>
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register_house' %}">Register House</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sign_up' %}">Sign Up</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
-
+<!-- Navbar End -->
 <div class="container">
+    {% if loggedinUser  %}
+        <div class="alert alert-info" role="alert">
+            Welcome, <strong>{{ loggedinUser  }}</strong>!
+        </div>
+    {% endif %}
+    
     {% block content %}
-    <!-- Page specific content will be injected here -->
     {% endblock %}
 </div>
 
-<footer>
-    <p>&copy; 2024 Realtoroo. All rights reserved.</p>
-</footer>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 </body>
+<footer class="footer">
+    <p>&copy; 2024 Real Estate Listings. All rights reserved.</p>
+</footer>
 </html>
